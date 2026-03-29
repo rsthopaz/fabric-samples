@@ -57,7 +57,7 @@ func (s *SmartContract) AddInventoryItem(ctx contractapi.TransactionContextInter
 		return fmt.Errorf("Item already exists with ID: %s", id)
 	}
 
-	asset := Item{
+	item := Item{
 		ID: id,
 		Code:           code,
 		Name:           name,
@@ -68,7 +68,7 @@ func (s *SmartContract) AddInventoryItem(ctx contractapi.TransactionContextInter
 		Category:         category,
 		Status:           status,
 	}
-	assetJSON, err := json.Marshal(asset)
+	assetJSON, err := json.Marshal(item)
 	if err != nil {
 		return err
 	}
@@ -87,14 +87,18 @@ func (s *SmartContract) UpdateItem(ctx contractapi.TransactionContextInterface, 
 	}
 
 	// overwriting original asset with new asset
-	item := Asset{
+	item := Item{
 		ID:             id,
-		Color:          color,
-		Size:           size,
-		Owner:          owner,
-		AppraisedValue: appraisedValue,
+		Code:           code,
+		Name:           name,
+		Description:    description,
+		Symbol:           symbol,
+		ConversionFactor: conversionFactor,
+		BaseUnit:         baseUnit,
+		Category:         category,
+		Status:           status,
 	}
-	assetJSON, err := json.Marshal(asset)
+	assetJSON, err := json.Marshal(item)
 	if err != nil {
 		return err
 	}
