@@ -1,5 +1,7 @@
 
 # FABRIC
+
+This is only setup for testing network
 ```
 ./network.sh down
 
@@ -43,3 +45,24 @@ peer chaincode query \
   -c '{"Args":["ReadAsset","asset1"]}'
 
 ```
+
+If anything happenes like this one:
+
+```
+Error: failed to endorse proposal: rpc error: code = Unknown desc = error validating proposal: access denied: channel [mychannel] creator org unknown, creator is malformed
+Chaincode definition approved on peer0.org1 on channel 'mychannel' failed
+Deploying chaincode failed
+(base) hohohihe@LAPTOP-U5VK2MHE:/mnt/d/Thopaz/Kuliah/Project_BC-Koperasi/fabric-samples/test-network$
+```
+
+It means reset all progress or do this instead:
+
+```
+./network.sh down
+
+docker rm -f $(docker ps -aq)
+docker volume prune -f
+docker network prune -f
+docker volume rm $(docker volume ls -q | grep compose_)
+```
+
