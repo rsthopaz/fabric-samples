@@ -15,7 +15,7 @@ type SmartContract struct {
 // Asset describes basic details of what makes up a simple asset
 // Insert struct field in alphabetic order => to achieve determinism across languages
 // golang keeps the order when marshal to json but doesn't order automatically
-type Asset struct {
+type Item struct {
 	ID 					string `json:"ID"`
 	Code 				string `json:"Code"`
 	Name		 		string `json:"Name"`
@@ -25,6 +25,14 @@ type Asset struct {
 	BaseUnit 			bool `json:"BaseUnit"`
 	Category 			string `json:"Category"`
 	Status 				bool `json:"Status"`
+}
+
+type Asset struct {
+	ID             string `json:"ID"`
+	Color          string `json:"Color"`
+	Size           int    `json:"Size"`
+	Owner          string `json:"Owner"`
+	AppraisedValue int    `json:"AppraisedValue"`
 }
 
 //   {
@@ -39,7 +47,7 @@ type Asset struct {
 //             "status": true
 //         },
 
-// Add inventory asset to world state with given details
+// AddInventoryItem to world state with given details
 func (s *SmartContract) AddInventoryItem(ctx contractapi.TransactionContextInterface, id string, code string, name string, description string, symbol string, conversionFactor int, baseUnit bool, category string, status bool) error {
 	exists, err := s.AssetExists(ctx, id)
 	if err != nil {
@@ -49,7 +57,7 @@ func (s *SmartContract) AddInventoryItem(ctx contractapi.TransactionContextInter
 		return fmt.Errorf("Item already exists with ID: %s", id)
 	}
 
-	asset := Asset{
+	asset := Item{
 		ID: id,
 		Code:           code,
 		Name:           name,
@@ -59,6 +67,32 @@ func (s *SmartContract) AddInventoryItem(ctx contractapi.TransactionContextInter
 		BaseUnit:         baseUnit,
 		Category:         category,
 		Status:           status,
+	}
+	assetJSON, err := json.Marshal(asset)
+	if err != nil {
+		return err
+	}
+
+	return ctx.GetStub().PutState(id, assetJSON)
+}
+
+// UpdateItem updates an existing asset in the world state with provided parameters.
+func (s *SmartContract) UpdateItem(ctx contractapi.TransactionContextInterface, id string, code string, name string, description string, symbol string, conversionFactor int, baseUnit bool, category string, status bool) error {
+	exists, err := s.AssetExists(ctx, id)
+	if err != nil {
+		return err
+	}
+	if !exists {
+		return fmt.Errorf("the asset %s does not exist", id)
+	}
+
+	// overwriting original asset with new asset
+	item := Asset{
+		ID:             id,
+		Color:          color,
+		Size:           size,
+		Owner:          owner,
+		AppraisedValue: appraisedValue,
 	}
 	assetJSON, err := json.Marshal(asset)
 	if err != nil {
