@@ -58,3 +58,9 @@ How to Read using ReadItem
 ```
 peer chaincode query -C mychannel -n koperasi -c '{"Args":["ReadItem","1"]}'
 ```
+
+How to Deleete using DeleteItem
+```
+peer chaincode query -C mychannel -n koperasi -c '{"Args":["DeleteItem","1"]}'
+
+```
