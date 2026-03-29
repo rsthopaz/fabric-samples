@@ -126,6 +126,29 @@ func (s *SmartContract) ReadItem(ctx contractapi.TransactionContextInterface, id
 	return &item, nil
 }
 
+// DeleteItem deletes an given item from the world state.
+func (s *SmartContract) DeleteItem(ctx contractapi.TransactionContextInterface, id string) error {
+	exists, err := s.ItemExists(ctx, id)
+	if err != nil {
+		return err
+	}
+	if !exists {
+		return fmt.Errorf("the item %s does not exist", id)
+	}
+
+	return ctx.GetStub().DelState(id)
+}
+
+// ItemExists returns true when item with given ID exists in world state
+func (s *SmartContract) ItemExists(ctx contractapi.TransactionContextInterface, id string) (bool, error) {
+	itemJSON, err := ctx.GetStub().GetState(id)
+	if err != nil {
+		return false, fmt.Errorf("failed to read from world state: %v", err)
+	}
+
+	return itemJSON != nil, nil
+}
+
 // InitLedger adds a base set of assets to the ledger
 func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) error {
 	assets := []Asset{
