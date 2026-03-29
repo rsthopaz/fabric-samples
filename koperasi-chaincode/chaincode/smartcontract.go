@@ -39,6 +39,35 @@ type Asset struct {
 //             "status": true
 //         },
 
+// Add inventory asset to world state with given details
+func (s *SmartContract) AddInventoryItem(ctx contractapi.TransactionContextInterface, id string, code string, name string, description string, symbol string, conversionFactor int, baseUnit bool, category string, status bool) error {
+	exists, err := s.AssetExists(ctx, id)
+	if err != nil {
+		return err
+	}
+	if exists {
+		return fmt.Errorf("Item already exists with ID: %s", id)
+	}
+
+	asset := Asset{
+		ID: id,
+		Code:           code,
+		Name:           name,
+		Description:    description,
+		Symbol:           symbol,
+		ConversionFactor: conversionFactor,
+		BaseUnit:         baseUnit,
+		Category:         category,
+		Status:           status,
+	}
+	assetJSON, err := json.Marshal(asset)
+	if err != nil {
+		return err
+	}
+
+	return ctx.GetStub().PutState(id, assetJSON)
+}
+
 // InitLedger adds a base set of assets to the ledger
 func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) error {
 	assets := []Asset{
