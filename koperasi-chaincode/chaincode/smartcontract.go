@@ -106,6 +106,26 @@ func (s *SmartContract) UpdateItem(ctx contractapi.TransactionContextInterface, 
 	return ctx.GetStub().PutState(id, assetJSON)
 }
 
+// ReadItem returns the item stored in the world state with given id.
+func (s *SmartContract) ReadItem(ctx contractapi.TransactionContextInterface, id string) (*Item, error) {
+
+	data, err := ctx.GetStub().GetState(id)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read: %v", err)
+	}
+	if data == nil {
+		return nil, fmt.Errorf("item %s does not exist", id)
+	}
+
+	var item Item
+	err = json.Unmarshal(data, &item)
+	if err != nil {
+		return nil, err
+	}
+
+	return &item, nil
+}
+
 // InitLedger adds a base set of assets to the ledger
 func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) error {
 	assets := []Asset{

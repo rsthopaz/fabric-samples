@@ -18,14 +18,14 @@ How to Add using AddInventoryItem
 ```
 peer chaincode invoke -C mychannel -n koperasi \
 -c '{"function":"AddInventoryItem","Args":[
-  "item1",
-  "BRG001",
-  "Beras",
+  "1",
+  "KG",
+  "Kilogram",
   "Beras premium kualitas bagus",
   "kg",
   "1",
   "true",
-  "Sembako",
+  "Weight",
   "true"
 ]}'
 ```
