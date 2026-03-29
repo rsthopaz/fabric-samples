@@ -53,3 +53,8 @@ peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.exa
   ]
 }'
 ```
+
+How to Read using ReadItem
+```
+peer chaincode query -C mychannel -n koperasi -c '{"Args":["ReadItem","1"]}'
+```
