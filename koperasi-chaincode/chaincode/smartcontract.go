@@ -16,12 +16,28 @@ type SmartContract struct {
 // Insert struct field in alphabetic order => to achieve determinism across languages
 // golang keeps the order when marshal to json but doesn't order automatically
 type Asset struct {
-	AppraisedValue int    `json:"AppraisedValue"`
-	Color          string `json:"Color"`
-	ID             string `json:"ID"`
-	Owner          string `json:"Owner"`
-	Size           int    `json:"Size"`
+	ID 					string `json:"ID"`
+	Code 				string `json:"Code"`
+	Name		 		string `json:"Name"`
+	Description 		string `json:"Description"`
+	Symbol 				string `json:"Symbol"`
+	ConversionFactor 	int `json:"ConversionFactor"`
+	BaseUnit 			bool `json:"BaseUnit"`
+	Category 			string `json:"Category"`
+	Status 				bool `json:"Status"`
 }
+
+//   {
+//             "id": 6,
+//             "code": "BOX",
+//             "name": "Box/Karton",
+//             "description": "Unit of packaging",
+//             "symbol": "box",
+//             "conversion_factor": 1,
+//             "base_unit": false,
+//             "category": "Quantity",
+//             "status": true
+//         },
 
 // InitLedger adds a base set of assets to the ledger
 func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) error {
