@@ -65,7 +65,7 @@ func NewFabricClient() (*FabricClient, error) {
 	}
 
 	network := gw.GetNetwork("mychannel")
-	contract := network.GetContract("koperasi-chaincode")
+	contract := network.GetContract("koperasi")
 
 	return &FabricClient{Contract: contract}, nil
 }

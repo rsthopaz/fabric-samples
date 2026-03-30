@@ -14,8 +14,8 @@ func (fc *FabricClient) AddInventoryItem(id string, code string, name string, de
     return string(result), nil
 }
 
-func (fc *FabricClient) ReadInventoryItem(id string) (string, error) {
-    result, err := fc.Contract.EvaluateTransaction("ReadInventoryItem", id)
+func (fc *FabricClient) ReadItem(id string) (string, error) {
+    result, err := fc.Contract.EvaluateTransaction("ReadItem", id)
     if err != nil {
         return "", err
     }
