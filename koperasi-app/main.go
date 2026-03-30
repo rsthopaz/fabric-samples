@@ -13,9 +13,9 @@ func main() {
 
 	// ADD ITEM
 	res, err := client.AddInventoryItem(
-		"100",
+		"101",
 		"BOX",
-		"Box Karton",
+		"Box Karton 101",
 		"Unit packaging",
 		"box",
 		1,
