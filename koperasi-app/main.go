@@ -54,4 +54,11 @@ func main() {
     }
     fmt.Println("Update result:", update)
 
+    // DELETE ITEM
+    delete, err := client.DeleteItem("101")
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println("Delete result:", delete)
+
 }
