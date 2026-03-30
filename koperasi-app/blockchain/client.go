@@ -1,4 +1,4 @@
-import blockchain
+package blockchain
 
 import (
 	"crypto/x509"
