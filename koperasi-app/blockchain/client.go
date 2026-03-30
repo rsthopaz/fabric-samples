@@ -57,12 +57,12 @@ func NewFabricClient() (*FabricClient, error) {
 
 	conn, err := grpc.Dial("localhost:7051", grpc.WithTransportCredentials(creds))
 	if err != nil {
-		log.Fatalf(err)
+		log.Fatalf("Failed to connect to gateway: %v", err)
 	}
 
 	gw, err := client.Connect(id, client.WithSign(sign), client.WithClientConnection(conn))
 	if err != nil {
-		log.Fatalf(err)
+		log.Fatalf("Failed to connect to gateway: %v", err)
 	}
 
 	network := gw.GetNetwork("mychannel")
