@@ -76,10 +76,10 @@ peer chaincode invoke -o localhost:7050 \
 --peerAddresses localhost:9051 \
 --tlsRootCertFiles $PEER0_ORG2_CA -c '{
   "Args":[
-    "AddInventoryItem",
+    "UpdateItem",
     "10",
     "BOX",
-    "Box/Karton",
+    "Box/Karton Update",
     "Unit of packaging",
     "box",
     "1",
