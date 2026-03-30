@@ -30,7 +30,7 @@ func main() {
 	fmt.Println("Add result:", res)
 
 	// READ ITEM
-	read, err := client.ReadInventoryItem("100")
+	read, err := client.ReadItem("100")
 	if err != nil {
 		panic(err)
 	}
