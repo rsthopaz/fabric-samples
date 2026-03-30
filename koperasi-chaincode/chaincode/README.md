@@ -18,6 +18,13 @@ This is Documentation for Blockchain Koperasi
 Before adding or using function from smartcontract.go make sure to follow this step:
 
 ```
+./network.sh down
+
+docker rm -f $(docker ps -aq)
+docker volume prune -f
+docker network prune -f
+docker volume rm $(docker volume ls -q | grep compose_)
+
 ./network.sh up createChannel -c mychannel -ca
 ./network.sh deployCC -ccn koperasi -ccp ../koperasi-chaincode -ccl go
 
@@ -59,7 +66,9 @@ How to Read using ReadItem
 peer chaincode query -C mychannel -n koperasi -c '{"Args":["ReadItem","1"]}'
 ```
 
-How to Deleete using DeleteItem
+How to Update using UpdateItem
+
+How to Delete using DeleteItem
 ```
 peer chaincode query -C mychannel -n koperasi -c '{"Args":["DeleteItem","1"]}'
 
