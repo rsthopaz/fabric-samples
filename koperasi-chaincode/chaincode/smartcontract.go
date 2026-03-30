@@ -49,7 +49,7 @@ type Asset struct {
 
 // AddInventoryItem to world state with given details
 func (s *SmartContract) AddInventoryItem(ctx contractapi.TransactionContextInterface, id string, code string, name string, description string, symbol string, conversionFactor int, baseUnit bool, category string, status bool) error {
-	exists, err := s.AssetExists(ctx, id)
+	exists, err := s.ItemExists(ctx, id)
 	if err != nil {
 		return err
 	}
@@ -78,12 +78,12 @@ func (s *SmartContract) AddInventoryItem(ctx contractapi.TransactionContextInter
 
 // UpdateItem updates an existing asset in the world state with provided parameters.
 func (s *SmartContract) UpdateItem(ctx contractapi.TransactionContextInterface, id string, code string, name string, description string, symbol string, conversionFactor int, baseUnit bool, category string, status bool) error {
-	exists, err := s.AssetExists(ctx, id)
+	exists, err := s.ItemExists(ctx, id)
 	if err != nil {
 		return err
 	}
 	if !exists {
-		return fmt.Errorf("the asset %s does not exist", id)
+		return fmt.Errorf("the item %s does not exist", id)
 	}
 
 	// overwriting original asset with new asset

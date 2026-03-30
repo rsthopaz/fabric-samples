@@ -24,7 +24,6 @@ docker rm -f $(docker ps -aq)
 docker volume prune -f
 docker network prune -f
 docker volume rm $(docker volume ls -q | grep compose_)
-
 ./network.sh up createChannel -c mychannel -ca
 ./network.sh deployCC -ccn koperasi -ccp ../koperasi-chaincode -ccl go
 
@@ -67,6 +66,29 @@ peer chaincode query -C mychannel -n koperasi -c '{"Args":["ReadItem","1"]}'
 ```
 
 How to Update using UpdateItem
+```
+peer chaincode invoke -o localhost:7050 \
+--ordererTLSHostnameOverride orderer.example.com \
+--tls --cafile $ORDERER_CA \
+-C mychannel -n koperasi \
+--peerAddresses localhost:7051 \
+--tlsRootCertFiles $PEER0_ORG1_CA \
+--peerAddresses localhost:9051 \
+--tlsRootCertFiles $PEER0_ORG2_CA -c '{
+  "Args":[
+    "AddInventoryItem",
+    "10",
+    "BOX",
+    "Box/Karton",
+    "Unit of packaging",
+    "box",
+    "1",
+    "false",
+    "Quantity",
+    "true"
+  ]
+}'
+```
 
 How to Delete using DeleteItem
 ```
