@@ -4,12 +4,11 @@ import (
 	"crypto/x509"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"path/filepath"
 
-	"github.com/hyperledger/fabric-gateway/pkg/client" 
-	"github.com/hyperledger/fabric-gateway/pkg/identity" 
-	"google.golang.org/grpc" 
+	"github.com/hyperledger/fabric-gateway/pkg/client"
+	"github.com/hyperledger/fabric-gateway/pkg/identity"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
 
@@ -19,9 +18,9 @@ type FabricClient struct {
 
 func NewFabricClient() (*FabricClient, error) {
 	// Load the connection profile;
-	certPath := filepath.Join("..", "wallet", "admin-msp", "msp", "signcerts", "cert.pem")
-	keyDir := filepath.Join("..", "wallet", "admin-msp", "msp", "keystore")
-	tlscertPath := filepath.Join("..", "..", "fabric-samples", "test-network", "organizations", "peerOrganizations", "org1.example.com", "peers", "peer0.org1.example.com", "tls", "ca.crt")
+	certPath := filepath.Join("wallet", "admin-msp", "msp", "signcerts", "cert.pem")
+	keyDir := filepath.Join("wallet", "admin-msp", "msp", "keystore")
+	tlscertPath := filepath.Join("..", "test-network", "organizations", "peerOrganizations", "org1.example.com", "peers", "peer0.org1.example.com", "tls", "ca.crt")
 
 	// Load Certificate
 	certPem, err := ioutil.ReadFile(certPath)
@@ -57,12 +56,12 @@ func NewFabricClient() (*FabricClient, error) {
 
 	conn, err := grpc.Dial("localhost:7051", grpc.WithTransportCredentials(creds))
 	if err != nil {
-		log.Fatalf("Failed to connect to gateway: %v", err)
+		return nil, fmt.Errorf("Failed to connect to gateway: %v", err)
 	}
 
 	gw, err := client.Connect(id, client.WithSign(sign), client.WithClientConnection(conn))
 	if err != nil {
-		log.Fatalf("Failed to connect to gateway: %v", err)
+		return nil, fmt.Errorf("Failed to connect to gateway: %v", err)
 	}
 
 	network := gw.GetNetwork("mychannel")

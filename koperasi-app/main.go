@@ -6,7 +6,10 @@ import (
 )
 
 func main() {
-	client, _:= blockchain.NewFabricClient()
+	client, err := blockchain.NewFabricClient()
+	if err != nil {
+		panic(err)
+	}
 
 	// ADD ITEM
 	res, err := client.AddInventoryItem(
