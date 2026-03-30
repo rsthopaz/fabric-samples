@@ -36,4 +36,22 @@ func main() {
 	}
 
 	fmt.Println("Read result:", read)
+
+    // UPDATE ITEM
+    update, err := client.UpdateItem(
+        "101",
+        "BOX",
+        "Box Karton 101 Updated",
+        "Unit packaging updated",
+        "box",
+        2,
+        false,
+        "Quantity",
+        true,
+    )
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println("Update result:", update)
+
 }
