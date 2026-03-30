@@ -29,3 +29,11 @@ func (fc *FabricClient) UpdateItem(id string, code string, name string, descript
     }
     return string(result), nil
 }
+
+func (fc *FabricClient) DeleteItem(id string) (string, error) {
+    result, err := fc.Contract.SubmitTransaction("DeleteItem", id)
+    if err != nil {
+        return "", err
+    }
+    return string(result), nil
+}
