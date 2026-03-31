@@ -92,6 +92,5 @@ peer chaincode invoke -o localhost:7050 \
 
 How to Delete using DeleteItem
 ```
-peer chaincode query -C mychannel -n koperasi -c '{"Args":["DeleteItem","1"]}'
-
+peer chaincode invoke -C mychannel -n koperasi -c '{"Args":["DeleteItem","10"]}'
 ```
