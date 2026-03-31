@@ -92,5 +92,17 @@ peer chaincode invoke -o localhost:7050 \
 
 How to Delete using DeleteItem
 ```
-peer chaincode invoke -C mychannel -n koperasi -c '{"Args":["DeleteItem","10"]}'
+peer chaincode invoke \
+-o localhost:7050 \
+--ordererTLSHostnameOverride orderer.example.com \
+--tls \
+--cafile $ORDERER_CA \
+-C mychannel \
+-n koperasi \
+--peerAddresses localhost:7051 \
+--tlsRootCertFiles $CORE_PEER_TLS_ROOTCERT_FILE \
+--peerAddresses localhost:9051 \
+--tlsRootCertFiles $PEER0_ORG2_CA \
+-c '{"Args":["DeleteItem","10"]}' \
+--waitForEvent
 ```
