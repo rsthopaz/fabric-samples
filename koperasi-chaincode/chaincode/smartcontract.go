@@ -149,6 +149,23 @@ func (s *SmartContract) ItemExists(ctx contractapi.TransactionContextInterface, 
 	return itemJSON != nil, nil
 }
 
+// GetHistory returns the history of an item
+func (s *SmartContract) GetHistory(ctx contractapi.TransactionContextInterface, id string) error {
+    iterator, err := ctx.GetStub().GetHistoryForKey(id)
+    if err != nil {
+        return err
+    }
+    defer iterator.Close()
+
+    for iterator.HasNext() {
+        record, _ := iterator.Next()
+        fmt.Printf("TxID: %s, Value: %s\n", record.TxId, string(record.Value))
+    }
+    return nil
+}
+
+// peer chaincode query -C mychannel -n koperasi -c '{"Args":["GetHistory","10"]}'
+
 // InitLedger adds a base set of assets to the ledger
 func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) error {
 	assets := []Asset{
