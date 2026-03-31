@@ -13,9 +13,9 @@ func main() {
 
 	// ADD ITEM
 	res, err := client.AddInventoryItem(
-		"104",
+		"105",
 		"BOX",
-		"Box Karton 104",
+		"Box Karton 105",
 		"Unit packaging",
 		"box",
 		1,
@@ -30,7 +30,7 @@ func main() {
 	fmt.Println("Add result:", res)
 
 	// READ ITEM
-	read, err := client.ReadItem("100")
+	read, err := client.ReadItem("105")
 	if err != nil {
 		panic(err)
 	}
@@ -39,9 +39,9 @@ func main() {
 
     // UPDATE ITEM
     _, err = client.UpdateItem(
-        "104",
+        "105",
         "BOX",
-        "Box Karton 104 Updated",
+        "Box Karton 105 Updated",
         "Unit packaging updated",
         "box",
         2,
@@ -53,19 +53,19 @@ func main() {
         panic(err)
     }
 
-    updated, err:= client.ReadItem("104")
+    updated, err:= client.ReadItem("105")
     if err != nil {
         panic(err)
     }
     fmt.Println("Update result:", updated)
 
     // DELETE ITEM
-    _, err = client.DeleteItem("104")
+    _, err = client.DeleteItem("105")
     if err != nil {
         panic(err)
     }
     
-    deleted, err := client.ReadItem("104")
+    deleted, err := client.ReadItem("105")
     if err != nil {
         fmt.Println("Item successfully deleted, cannot read:", err)
     } 
