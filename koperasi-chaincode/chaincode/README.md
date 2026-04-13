@@ -17,6 +17,8 @@ This is Documentation for Blockchain Koperasi
 
 Before adding or using function from smartcontract.go make sure to follow this step:
 
+sintetik data alur pembelian
+
 ```
 ./network.sh down
 
@@ -47,8 +49,8 @@ How to Add using AddInventoryItem
 peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA -C mychannel -n koperasi --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG2_CA -c '{
   "Args":[
     "AddInventoryItem",
-    "10",
-    "BOX",
+    "12",
+    "BOX2",
     "Box/Karton",
     "Unit of packaging",
     "box",

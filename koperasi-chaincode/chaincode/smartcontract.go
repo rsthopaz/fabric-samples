@@ -149,19 +149,45 @@ func (s *SmartContract) ItemExists(ctx contractapi.TransactionContextInterface, 
 	return itemJSON != nil, nil
 }
 
-// GetHistory returns the history of an item
-func (s *SmartContract) GetHistory(ctx contractapi.TransactionContextInterface, id string) error {
-    iterator, err := ctx.GetStub().GetHistoryForKey(id)
-    if err != nil {
-        return err
-    }
-    defer iterator.Close()
+// GetHistory returns the history of an item as a JSON array string
+func (s *SmartContract) GetHistory(ctx contractapi.TransactionContextInterface, id string) (string, error) {
+	iterator, err := ctx.GetStub().GetHistoryForKey(id)
+	if err != nil {
+		return "", err
+	}
+	defer iterator.Close()
 
-    for iterator.HasNext() {
-        record, _ := iterator.Next()
-        fmt.Printf("TxID: %s, Value: %s\n", record.TxId, string(record.Value))
-    }
-    return nil
+	var records []map[string]interface{}
+	for iterator.HasNext() {
+		record, err := iterator.Next()
+		if err != nil {
+			return "", err
+		}
+
+		// Try to decode the stored value as JSON, otherwise fall back to raw string
+		var decoded interface{}
+		if len(record.Value) > 0 {
+			if err := json.Unmarshal(record.Value, &decoded); err != nil {
+				decoded = string(record.Value)
+			}
+		} else {
+			decoded = nil
+		}
+
+		rec := map[string]interface{}{
+			"TxId":    record.TxId,
+			"Value":   decoded,
+			"IsDelete": record.IsDelete,
+		}
+		records = append(records, rec)
+	}
+
+	out, err := json.Marshal(records)
+	if err != nil {
+		return "", err
+	}
+
+	return string(out), nil
 }
 
 // peer chaincode query -C mychannel -n koperasi -c '{"Args":["GetHistory","10"]}'
