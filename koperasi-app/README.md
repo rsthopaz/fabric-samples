@@ -167,13 +167,6 @@ then the API cannot reach the Fabric peer at `127.0.0.1:7051`. Steps:
 - `koperasi-app/blockchain/inventory.go` — wrappers to change `SubmitTransaction` to `SubmitAsync` if you want tx IDs.
 - `koperasi-app/api/handlers_inventory.go` — change to parse chaincode JSON results into native JSON responses.
 
-## Recommended next improvements (roadmap)
-
-1. Parse chaincode query responses into JSON before returning (improves Postman UX). I can implement this now.
-2. Return a transaction ID from submit operations by using `SubmitAsync` and returning the tx ID immediately.
-3. Add JWT authentication and role checks to protect modifying endpoints.
-4. Add integration test scripts that start `test-network`, deploy chaincode, run the server, and execute example curl/Postman tests.
-
 ## Where to look in the code
 
 - Chaincode logic: [koperasi-chaincode/chaincode/smartcontract.go](../koperasi-chaincode/chaincode/smartcontract.go)
