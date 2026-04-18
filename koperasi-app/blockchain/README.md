@@ -41,7 +41,4 @@ Testing and debugging
 - Unit tests: mock the `ChaincodeAPI` interface in API tests. The `blockchain` package itself can be tested against a running test-network in integration tests.
 - If you see `connection refused` to `127.0.0.1:7051`, ensure the peer container is running and the endpoint matches `ClientConfig.PeerEndpoint`.
 
-Next improvements
-- Use `SubmitAsync` to return transaction IDs (instead of empty submit payloads) for better client-side UX and tracking.
-- Add higher-level error mapping to convert Fabric errors into structured API errors.
-- Add support for multiple identities/wallets and per-user wallets (CA enrollment) for end-user identity mapping.
+
