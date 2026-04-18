@@ -1,18 +1,16 @@
 package api
 
 import (
-    // "fmt"
-
     "github.com/gin-gonic/gin"
     "koperasi-app/blockchain"
 )
 
 type Server struct {
     Router *gin.Engine
-    Fc     *blockchain.FabricClient
+    Fc     blockchain.ChaincodeAPI
 }
 
-func NewServer(fc *blockchain.FabricClient) *Server {
+func NewServer(fc blockchain.ChaincodeAPI) *Server {
     r := gin.Default()
     s := &Server{Router: r, Fc: fc}
 
@@ -21,6 +19,9 @@ func NewServer(fc *blockchain.FabricClient) *Server {
         inv := api.Group("/inventory")
         inv.POST("", s.AddInventory)
         inv.GET(":id", s.GetInventory)
+        inv.PUT(":id", s.UpdateInventory)
+        inv.DELETE(":id", s.DeleteInventory)
+        inv.GET(":id/history", s.GetInventoryHistory)
     }
 
     r.GET("/health", func(c *gin.Context) {
@@ -31,17 +32,9 @@ func NewServer(fc *blockchain.FabricClient) *Server {
 }
 
 func (s *Server) Run(addr string) error {
-    if addr == "" {
-        addr = ":8080"
-    }
     return s.Router.Run(addr)
 }
 
-// helper used by handlers
 func (s *Server) respondError(c *gin.Context, code int, err error) {
     c.JSON(code, gin.H{"error": err.Error()})
-}
-
-func (s *Server) respondOK(c *gin.Context, data interface{}) {
-    c.JSON(200, gin.H{"data": data})
 }

@@ -15,6 +15,16 @@ type FabricClient struct {
 	Contract *client.Contract
 }
 
+// ChaincodeAPI defines the methods used by the API handlers. FabricClient implements this.
+type ChaincodeAPI interface {
+	AddInventoryItem(id string, code string, name string, description string, symbol string, conversionFactor int, baseUnit bool, category string, status bool) (string, error)
+	ReadItem(id string) (string, error)
+	UpdateItem(id string, code string, name string, description string, symbol string, conversionFactor int, baseUnit bool, category string, status bool) (string, error)
+	DeleteItem(id string) (string, error)
+	// GetHistory returns history JSON string for an id
+	GetHistory(id string) (string, error)
+}
+
 // ClientConfig contains configuration used to establish a gateway connection.
 type ClientConfig struct {
 	CertPath      string // path to X.509 cert PEM
