@@ -1,12 +1,12 @@
 package api
 
 import (
-    "net/http"
-    "net/http/httptest"
-    "strings"
-    "testing"
+	"net/http"
+	"net/http/httptest"
+	"strings"
+	"testing"
 
-    "github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
 )
 
 // mockChaincode implements the blockchain.ChaincodeAPI for tests.

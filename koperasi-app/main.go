@@ -1,9 +1,9 @@
 package main
 
 import (
-    "log"
-    "koperasi-app/api"
-    "koperasi-app/blockchain"
+	"koperasi-app/api"
+	"koperasi-app/blockchain"
+	"log"
 )
 
 func main() {
@@ -13,7 +13,7 @@ func main() {
     }
 
     srv := api.NewServer(client)
-    if err := srv.Run(":8080"); err != nil {
+    if err := srv.Run(":50000"); err != nil {
         log.Fatalf("server exited: %v", err)
     }
 }

@@ -1,8 +1,9 @@
 package api
 
 import (
-    "github.com/gin-gonic/gin"
-    "koperasi-app/blockchain"
+	"koperasi-app/blockchain"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Server struct {

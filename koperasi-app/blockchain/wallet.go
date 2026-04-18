@@ -1,11 +1,11 @@
 package blockchain
 
 import (
-    "fmt"
-    "io/ioutil"
-    "path/filepath"
+	"fmt"
+	"io/ioutil"
+	"path/filepath"
 
-    "github.com/hyperledger/fabric-gateway/pkg/identity"
+	"github.com/hyperledger/fabric-gateway/pkg/identity"
 )
 
 // LoadIdentityFromFiles reads certificate PEM and private key PEM from the

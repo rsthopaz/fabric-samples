@@ -1,10 +1,10 @@
 package api
 
 import (
-    "net/http"
+	"net/http"
 
-    "github.com/gin-gonic/gin"
-    // "koperasi-app/blockchain" // Removed unused import
+	"github.com/gin-gonic/gin"
+	// "koperasi-app/blockchain" // Removed unused import
 )
 
 type InventoryRequest struct {
